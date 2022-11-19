@@ -1,6 +1,9 @@
-package com.crud.bean;
+package com.example.bean;
 
+import java.text.ParseException;
 import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 public class BoardVO {
 	private int seq;
@@ -9,6 +12,10 @@ public class BoardVO {
 	private String content;
 	private Date regdate;
 	private int cnt;
+	private String category;
+	private String photo;
+
+	private Date lastupdate;
 	
 	public int getSeq() {
 		return seq;
@@ -40,10 +47,45 @@ public class BoardVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
+	public void setRegdate(String regdate) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = dateFormat.parse(regdate);
+		this.regdate = date;
+	}
 	public int getCnt() {
 		return cnt;
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public Date getLastupdate() {
+		return lastupdate;
+	}
+
+	public void setLastupdate(Date lastupdate) {
+		this.lastupdate = lastupdate;
+	}
+
+	public void setLastupdate(String lastupdate) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = dateFormat.parse(lastupdate);
+		this.lastupdate = date;
+	}
+
 }

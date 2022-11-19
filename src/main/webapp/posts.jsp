@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.crud.dao.BoardDAO, com.crud.bean.BoardVO,java.util.*"%>
+<%@page import="com.example.dao.BoardDAO, com.example.bean.BoardVO"%>
+<%--<%@page import="com.example.util.*"--%>
+<%@page import="java.util.*, java.io.File"%>
+<%@page import="com.oreilly.servlet.*" %>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +43,7 @@
 </script>
 </head>
 <body>
-<h1>자유게시판</h1>
+<h1>도서관리</h1>
 <%
 	BoardDAO boardDAO = new BoardDAO();
 	List<BoardVO> list = boardDAO.getBoardList();
@@ -44,21 +51,29 @@
 %>
 <table id="list" width="90%">
 <tr>
-	<th>Id</th>
-	<th>Title</th>
-	<th>Writer</th>
-	<th>Content</th>
-	<th>Regdate</th>
-	<th>Edit</th>
-	<th>Delete</th>
+	<th>일련번호</th>
+	<th>카테고리</th>
+	<th>서명</th>
+	<th>저자</th>
+	<th>내용</th>
+	<th>등록일</th>
+	<th>수정일</th>
+	<th>첨부파일</th>
+	<th>수정</th>
+	<th>삭제</th>
 </tr>
 <c:forEach items="${list}" var="u">
 	<tr>
 		<td>${u.getSeq()}</td>
+		<td>${u.getCategory()}</td>
 		<td>${u.getTitle()}</td>
 		<td>${u.getWriter()}</td>
 		<td>${u.getContent()}</td>
 		<td>${u.getRegdate()}</td>
+		<td>${u.getLastupdate()}</td>
+<%--		<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${u.getLastupdate()}"/></td>--%>
+		<td><img width="30" height="30" src="${pageContext.request.contextPath}/upload/${u.getPhoto()}"></td>
+		<%--pageContext.request.contextPath가 서버 내에서 upload폴더가 있는 위치를 찾고, getPhoto로 파일 이름 찾아서 넣어줌		--%>
 		<td><a href="editform.jsp?id=${u.getSeq()}">Edit</a></td>
 		<td><a href="javascript:delete_ok('${u.getSeq()}')">Delete</a></td>
 	</tr>
